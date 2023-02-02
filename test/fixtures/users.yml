@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  email: MyString
+  sis_id: MyString
+  university: MyString
+  course_code: MyString
+  initial_active: false
+  initial_answered: false
+  midterm_active: false
+  midterm_answered: false
+  exit_active: false
+  exit_answered: false
+
+two:
+  name: MyString
+  email: MyString
+  sis_id: MyString
+  university: MyString
+  course_code: MyString
+  initial_active: false
+  initial_answered: false
+  midterm_active: false
+  midterm_answered: false
+  exit_active: false
+  exit_answered: false

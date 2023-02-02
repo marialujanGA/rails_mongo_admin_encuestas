@@ -1,0 +1,55 @@
+<%
+=begin%>
+ <p style="color: green"><%= notice %></p>
+
+<h1>Users</h1>
+
+<div id="users">
+  <% @users.each do |user| %>
+    <%= render user %>
+    <p>
+      <%= link_to "Show this user", user %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New user", new_user_path %> 
+<%
+=end%>
+
+
+<table class="table table-striped align-middle">
+  <thead>
+    <tr>                          
+      <th scope="col">Nombre</th>
+      <th scope="col">E-Mail</th>
+      <th scope="col">SIS_ID</th>
+      <th scope="col">Universidad</th>
+      <th scope="col">Curso</th>
+      <th scope="col">Inicial</th>
+      <th scope="col">Inicial</th>
+      <th scope="col">Midterm</th>
+      <th scope="col">Midterm</th>
+      <th scope="col">Final</th>
+      <th scope="col">Final</th>
+    
+    </tr>
+  </thead>
+  <tbody class="body">
+    <tr>
+      <% @users.each do |user| %>
+      <td><%= user.name %></td> 
+      <td><%= user.email %></td> 
+      <td><%= user.sis_id %></td> 
+      <td><%= user.university %></td> 
+      <td><%= user.course_code %></td> 
+      <td><%= user.initial_active %></td> 
+      <td><%= user.initial_answered %></td> 
+      <td><%= user.midterm_active %></td> 
+      <td><%= user.midterm_active %></td> 
+      <td><%= user.exit_active %></td> 
+      <td><%= user.exit_answered %></td> 
+        <% end %>
+    </tr>
+  </tbody>
+</table>

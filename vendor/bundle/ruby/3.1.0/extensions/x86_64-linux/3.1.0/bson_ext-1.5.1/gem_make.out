@@ -1,0 +1,76 @@
+current directory: /home/lujan/Escritorio/Repos/rails_mongo_admin_encuestas/vendor/bundle/ruby/3.1.0/gems/bson_ext-1.5.1/ext/cbson
+/home/lujan/.rbenv/versions/3.1.3/bin/ruby -I /home/lujan/.rbenv/versions/3.1.3/lib/ruby/site_ruby/3.1.0 extconf.rb
+checking for asprintf()... yes
+checking for ruby/st.h... yes
+checking for ruby/regex.h... yes
+checking for ruby/encoding.h... yes
+creating Makefile
+
+current directory: /home/lujan/Escritorio/Repos/rails_mongo_admin_encuestas/vendor/bundle/ruby/3.1.0/gems/bson_ext-1.5.1/ext/cbson
+make DESTDIR\= sitearchdir\=./.gem.20230202-15339-r4h198 sitelibdir\=./.gem.20230202-15339-r4h198 clean
+
+current directory: /home/lujan/Escritorio/Repos/rails_mongo_admin_encuestas/vendor/bundle/ruby/3.1.0/gems/bson_ext-1.5.1/ext/cbson
+make DESTDIR\= sitearchdir\=./.gem.20230202-15339-r4h198 sitelibdir\=./.gem.20230202-15339-r4h198
+compiling bson_buffer.c
+compiling cbson.c
+cbson.c:47:5: warning: "HAVE_ST_H" is not defined, evaluates to 0 [-Wundef]
+   47 | #if HAVE_ST_H
+      |     ^~~~~~~~~
+cbson.c:54:5: warning: "HAVE_REGEX_H" is not defined, evaluates to 0 [-Wundef]
+   54 | #if HAVE_REGEX_H
+      |     ^~~~~~~~~~~~
+In file included from /home/lujan/.rbenv/versions/3.1.3/include/ruby-3.1.0/ruby/internal/arithmetic/char.h:29,
+                 from /home/lujan/.rbenv/versions/3.1.3/include/ruby-3.1.0/ruby/internal/arithmetic.h:23,
+                 from /home/lujan/.rbenv/versions/3.1.3/include/ruby-3.1.0/ruby/ruby.h:27,
+                 from /home/lujan/.rbenv/versions/3.1.3/include/ruby-3.1.0/ruby.h:38,
+                 from cbson.c:23:
+cbson.c: In function ‘write_utf8’:
+/home/lujan/.rbenv/versions/3.1.3/include/ruby-3.1.0/ruby/internal/core/rstring.h:54:27: warning: pointer targets in passing argument 1 of ‘check_string’ differ in signedness [-Wpointer-sign]
+   54 | #define RSTRING_PTR       RSTRING_PTR
+cbson.c:118:36: note: in expansion of macro ‘RSTRING_PTR’
+  118 |     result_t status = check_string(RSTRING_PTR(string), RSTRING_LEN(string),
+      |                                    ^~~~~~~~~~~
+In file included from cbson.c:65:
+encoding_helpers.h:26:44: note: expected ‘const unsigned char *’ but argument is of type ‘char *’
+   26 | result_t check_string(const unsigned char* string, const int length,
+      |                       ~~~~~~~~~~~~~~~~~~~~~^~~~~~
+cbson.c: In function ‘write_element’:
+cbson.c:303:20: warning: unused variable ‘values’ [-Wunused-variable]
+  303 |             VALUE* values;
+      |                    ^~~~~~
+cbson.c: In function ‘write_doc’:
+cbson.c:602:18: warning: implicit declaration of function ‘bson_buffer_get_max_size’; did you mean ‘bson_buffer_set_max_size’? [-Wimplicit-function-declaration]
+  602 |     if (length > bson_buffer_get_max_size(buffer)) {
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~
+      |                  bson_buffer_set_max_size
+cbson.c: In function ‘objectid_generate’:
+cbson.c:905:13: warning: implicit declaration of function ‘htonl’ [-Wimplicit-function-declaration]
+  905 |         t = htonl((int)time(NULL));
+      |             ^~~~~
+cbson.c:913:11: warning: implicit declaration of function ‘htons’ [-Wimplicit-function-declaration]
+  913 |     pid = htons(getpid());
+      |           ^~~~~
+cbson.c: In function ‘Init_cbson’:
+cbson.c:945:6: warning: old-style function definition [-Wold-style-definition]
+  945 | void Init_cbson() {
+      |      ^~~~~~~~~~
+cbson.c: In function ‘write_element’:
+cbson.c:168:31: warning: ignoring return value of ‘asprintf’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  168 | #define INT2STRING(buffer, i) asprintf(buffer, "%d", i);
+      |                               ^~~~~~~~~~~~~~~~~~~~~~~~~
+cbson.c:318:17: note: in expansion of macro ‘INT2STRING’
+  318 |                 INT2STRING(&name, i);
+      |                 ^~~~~~~~~~
+cbson.c: At top level:
+cc1: note: unrecognized command-line option ‘-Wno-self-assign’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-parentheses-equality’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-constant-logical-operand’ may have been intended to silence earlier diagnostics
+compiling encoding_helpers.c
+linking shared-object bson_ext/cbson.so
+
+current directory: /home/lujan/Escritorio/Repos/rails_mongo_admin_encuestas/vendor/bundle/ruby/3.1.0/gems/bson_ext-1.5.1/ext/cbson
+make DESTDIR\= sitearchdir\=./.gem.20230202-15339-r4h198 sitelibdir\=./.gem.20230202-15339-r4h198 install
+/usr/bin/install -c -m 0755 cbson.so ./.gem.20230202-15339-r4h198/bson_ext
+
+current directory: /home/lujan/Escritorio/Repos/rails_mongo_admin_encuestas/vendor/bundle/ruby/3.1.0/gems/bson_ext-1.5.1/ext/cbson
+make DESTDIR\= sitearchdir\=./.gem.20230202-15339-r4h198 sitelibdir\=./.gem.20230202-15339-r4h198 clean
