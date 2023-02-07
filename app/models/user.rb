@@ -13,4 +13,6 @@ class User
   field :midterm_answered, type: Mongoid::Boolean
   field :exit_active, type: Mongoid::Boolean
   field :exit_answered, type: Mongoid::Boolean
+
+
 end

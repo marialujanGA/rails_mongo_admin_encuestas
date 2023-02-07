@@ -17,6 +17,14 @@
 <%
 =end%>
 
+<script>
+const toggler = document.getElementByClass("form-check-input initial")
+const changeActive = () => {
+  toggler.onChange={() =>{ toggle_initial }}
+}
+
+</script>
+
 
 <table class="table table-striped align-middle">
   <thead>
@@ -36,20 +44,24 @@
     </tr>
   </thead>
   <tbody class="body">
-    <tr>
-      <% @users.each do |user| %>
-      <td><%= user.name %></td> 
-      <td><%= user.email %></td> 
-      <td><%= user.sis_id %></td> 
-      <td><%= user.university %></td> 
-      <td><%= user.course_code %></td> 
-      <td><%= user.initial_active %></td> 
-      <td><%= user.initial_answered %></td> 
-      <td><%= user.midterm_active %></td> 
-      <td><%= user.midterm_active %></td> 
-      <td><%= user.exit_active %></td> 
-      <td><%= user.exit_answered %></td> 
-        <% end %>
-    </tr>
+    <% @users.each do |user| %>
+      <tr >
+        <td><%= user.name %></td> 
+        <td><%= user.email %></td> 
+        <td><%= user.sis_id %></td> 
+        <td><%= user.university %></td> 
+        <td><%= user.course_code %></td> 
+        <td>
+
+
+
+        </td> 
+        <td><%= user.initial_active %></td> 
+        <td><%= user.midterm_active %></td> 
+        <td><%= user.midterm_answered %></td> 
+        <td><%= user.exit_active %></td> 
+        <td><%= user.exit_answered %></td> 
+      </tr> 
+     <% end %>
   </tbody>
 </table>

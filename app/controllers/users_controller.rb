@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
+  helper_method :toggle_initial, :toggle_midterm_acive, :toggle_exit_acive
 
   # GET /users or /users.json
   def index
@@ -25,10 +26,10 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to user_url(@user), notice: "User was successfully created." }
+        format.html { redirect_to user_url(@user), notice: "El usuario fue agregado exitosamente." }
         format.json { render :show, status: :created, location: @user }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity, notice: "Ha ocurrido un error. Por favor vuelva a intentarlo." }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -38,10 +39,10 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
+        format.html { redirect_to user_url(@user), notice: "El usuario fue actualizado exitosamente." }
         format.json { render :show, status: :ok, location: @user }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity, notice: "Ha ocurrido un error. Por favor vuelva a intentarlo." }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -52,11 +53,51 @@ class UsersController < ApplicationController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to users_url, notice: "User was successfully destroyed." }
+      format.html { redirect_to users_url, notice: "El usuaro fue eliminado exitosamente." }
       format.json { head :no_content }
     end
   end
 
+  def toggle_initial
+
+      if params[:id].present?
+        user = User.find(params[:id])
+        user.update_attribute!(:initial_active, !user.initial_active).save
+        respond_to do |format|
+          format.html { redirect_to root_path, notice: `El estado de la encuesta cambiado para ${user}` }
+          format.json { head :no_content }
+        end
+
+      end
+      render 'button'
+   end
+
+  def toggle_middterm
+    @user = User.find(@users["sis_id"])
+    @user.toggle(:mideterm_active).save
+    redirect_to :back
+  end
+
+  def toggle_exit
+    @user = User.find(@users["sis_id"])
+    @user.toggle(:exit_active).save
+    redirect_to :back
+  end
+
+
+  # SWITCHES = [:initial_active, :midterm_active, :exit_active]
+
+  # SWITCHES.each do |switch|
+  #   define_method("toggle_#{switch}") do
+  #     toggle("#{switch}") 
+  #   end
+  # end
+
+
+  # def toggle(attribute)
+  #   current_value = self.send(attribute)
+  #   self.update_attribute!("#{attribute}", !current_value)
+  # end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -65,6 +106,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :email, :sis_id, :university, :course_code, :initial_active, :initial_answered, :midterm_active, :midterm_answered, :exit_active, :exit_answered)
+      params.require(:user).permit(:_id, :name, :email, :sis_id, :university, :course_code, :initial_active, :initial_answered, :midterm_active, :midterm_answered, :exit_active, :exit_answered)
     end
 end
