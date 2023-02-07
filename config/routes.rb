@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   resources :users do
 
-    put :toggle_initial
+    patch :toggler
 
   end
 

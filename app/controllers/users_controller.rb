@@ -58,46 +58,36 @@ class UsersController < ApplicationController
     end
   end
 
-  def toggle_initial
+  
+  togglerList = ['initial', 'midterm', 'exit']
 
+
+  def toggler
+    togglerList.each do |instance|
       if params[:id].present?
         user = User.find(params[:id])
-        user.update_attribute!(:initial_active, !user.initial_active).save
+        user.update_attribute!(:instance_active, !user.instance_active)
         respond_to do |format|
           format.html { redirect_to root_path, notice: `El estado de la encuesta cambiado para ${user}` }
           format.json { head :no_content }
         end
 
       end
-      render 'button'
+    end
    end
 
-  def toggle_middterm
-    @user = User.find(@users["sis_id"])
-    @user.toggle(:mideterm_active).save
-    redirect_to :back
-  end
-
-  def toggle_exit
-    @user = User.find(@users["sis_id"])
-    @user.toggle(:exit_active).save
-    redirect_to :back
-  end
-
-
-  # SWITCHES = [:initial_active, :midterm_active, :exit_active]
-
-  # SWITCHES.each do |switch|
-  #   define_method("toggle_#{switch}") do
-  #     toggle("#{switch}") 
-  #   end
+  # def toggle_middterm
+  #   @user = User.find(@users["sis_id"])
+  #   @user.toggle(:mideterm_active).save
+  #   redirect_to :back
   # end
 
-
-  # def toggle(attribute)
-  #   current_value = self.send(attribute)
-  #   self.update_attribute!("#{attribute}", !current_value)
+  # def toggle_exit
+  #   @user = User.find(@users["sis_id"])
+  #   @user.toggle(:exit_active).save
+  #   redirect_to :back
   # end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
