@@ -1,57 +1,44 @@
-<div id="<%= dom_id user %>">
-  <p>
-    <strong>Name:</strong>
-    <%= user.name %>
-  </p>
+<%
+=begin%>
+ <%= turbo_frame_tag "users", class: "shadow overflow-hidden rounded border-b border-gray-200" do %> 
+<%
+=end%>
+  <div id="<%= dom_id user %>">
+    <td>
+    <p><%= user.name %></p>
+    </td>
+    <td>
+      <p><%= user.email %></p>
+      </td>
+    <td>
+      <p><%= user.sis_id %></p>
+      </td>
+    <td>
+      <p><%= user.university %></p>
+    </td>
+    <td>
+      <p><%= user.course_code %></p>
+    </td>
 
-  <p>
-    <strong>Email:</strong>
-    <%= user.email %>
-  </p>
+    <%= form_for user, class:"text-lg inline-block my-3 w-72" do |form| %>
+      <td><%= form.check_box :initial_active, onchange: "this.form.requestSubmit();", class: "mr-2 align-middle bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-5 w-5 rounded checked:bg-green-500" %>  </td>
+    <td>
+      <p><%= user.initial_answered %></p>
+    </td>
+      <td><%= form.check_box :midterm_active, onchange: "this.form.requestSubmit();", class: "mr-2 align-middle bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-5 w-5 rounded checked:bg-green-500" %>  </td>
+    <td>
+      <p><%= user.midterm_answered %></p>
+    </td>
 
-  <p>
-    <strong>Sis:</strong>
-    <%= user.sis_id %>
-  </p>
+    <td><%= form.check_box :exit_active, onchange: "this.form.requestSubmit();", class: "mr-2 align-middle bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-5 w-5 rounded checked:bg-green-500" %>  </td>
 
-  <p>
-    <strong>University:</strong>
-    <%= user.university %>
-  </p>
-
-  <p>
-    <strong>Course code:</strong>
-    <%= user.course_code %>
-  </p>
-
-  <p>
-    <strong>Initial active:</strong>
-    <%= user.initial_active %>
-  </p>
-
-  <p>
-    <strong>Initial answered:</strong>
-    <%= user.initial_answered %>
-  </p>
-
-  <p>
-    <strong>Midterm active:</strong>
-    <%= user.midterm_active %>
-  </p>
-
-  <p>
-    <strong>Midterm answered:</strong>
-    <%= user.midterm_answered %>
-  </p>
-
-  <p>
-    <strong>Exit active:</strong>
-    <%= user.exit_active %>
-  </p>
-
-  <p>
-    <strong>Exit answered:</strong>
-    <%= user.exit_answered %>
-  </p>
-
-</div>
+    <td>
+      <p><%= user.exit_answered %></p>
+    </td>
+    <% end %>
+  </div>
+<%
+=begin%>
+ <% end %> 
+<%
+=end%>

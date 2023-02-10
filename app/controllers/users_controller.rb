@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
-  helper_method :toggle_initial, :toggle_midterm_acive, :toggle_exit_acive
+  include Filterable
 
   # GET /users or /users.json
   def index
@@ -26,8 +26,11 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to user_url(@user), notice: "El usuario fue agregado exitosamente." }
-        format.json { render :show, status: :created, location: @user }
+        format.html { redirect_to users_path, status: :see_other }
+        
+        flash[:notice] = "#{@user.email} fue agregado exitosamente." 
+        
+        format.json { render :index, status: :created, location: @user }
       else
         format.html { render :new, status: :unprocessable_entity, notice: "Ha ocurrido un error. Por favor vuelva a intentarlo." }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -39,8 +42,9 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to user_url(@user), notice: "El usuario fue actualizado exitosamente." }
-        format.json { render :show, status: :ok, location: @user }
+        redirect_to users_path 
+        flash[:notice] = "El estado de la encuesta cambiado para #{@user.email}" 
+
       else
         format.html { render :edit, status: :unprocessable_entity, notice: "Ha ocurrido un error. Por favor vuelva a intentarlo." }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -50,6 +54,7 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
+    @user = User.find(params[:id])
     @user.destroy
 
     respond_to do |format|
@@ -58,37 +63,17 @@ class UsersController < ApplicationController
     end
   end
 
-  
-  togglerList = ['initial', 'midterm', 'exit']
-
-
-  def toggler
-    togglerList.each do |instance|
-      if params[:id].present?
-        user = User.find(params[:id])
-        user.update_attribute!(:instance_active, !user.instance_active)
-        respond_to do |format|
-          format.html { redirect_to root_path, notice: `El estado de la encuesta cambiado para ${user}` }
-          format.json { head :no_content }
-        end
-
-      end
-    end
-   end
-
-  # def toggle_middterm
-  #   @user = User.find(@users["sis_id"])
-  #   @user.toggle(:mideterm_active).save
-  #   redirect_to :back
+  # def list
+  # #   # # users = User.includes(:course_code)
+  # #   # # users = users.where('sis_id ilike ?', "%#{params[:sis_id]}%") if params[:sis_id].present?
+  # #   # # users = users.order("#{params[:column]} #{params[:direction]}")
+  # #   # # render(partial: 'users', locals: { users: users })
+  #   users = filter!(User)
+  #   render(partial: 'users', locals: { users: users })
   # end
 
-  # def toggle_exit
-  #   @user = User.find(@users["sis_id"])
-  #   @user.toggle(:exit_active).save
-  #   redirect_to :back
-  # end
 
-  private
+    private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])

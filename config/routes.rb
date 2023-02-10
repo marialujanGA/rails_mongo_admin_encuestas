@@ -11,10 +11,13 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  resources :users do
+  # resources :users do
+  #   collection do
+  #     post 'search'
+  #     get 'list'
+  #   end
+  # end
 
-    patch :toggler
-
-  end
+  # put "users/:id/toggler_initial", to: "users#toggler_initial"
 
 end

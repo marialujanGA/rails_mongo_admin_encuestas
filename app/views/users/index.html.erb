@@ -1,73 +1,46 @@
-<%
-=begin%>
- <p style="color: green"><%= notice %></p>
 
-<h1>Users</h1>
 
-<div id="users">
-  <% @users.each do |user| %>
-    <%= render user %>
-    <p>
-      <%= link_to "Show this user", user %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New user", new_user_path %> 
-<%
-=end%>
-
-<script>
-const toggler = document.getElementByClass("form-check-input initial")
-const changeActive = () => {
-  toggler.onChange={() =>{ toggle_initial }}
-}
-
-</script>
 <div class="px-5" data-controller="users">
 
-<table class="table table-striped align-middle">
+<table class="table align-middle text-center table-hover">
   <thead>
     <tr>                          
-      <th scope="col">Nombre</th>
-      <th scope="col">E-Mail</th>
-      <th scope="col">SIS_ID</th>
-      <th scope="col">Universidad</th>
-      <th scope="col">Curso</th>
-      <th scope="col">Inicial</th>
-      <th scope="col">Inicial</th>
-      <th scope="col">Midterm</th>
-      <th scope="col">Midterm</th>
-      <th scope="col">Final</th>
-      <th scope="col">Final</th>
-    
+      <th scope="col" id="users-name" rowspan="2" >Nombre
+        <%
+=begin%>
+ <%= sort_indicator if session.dig('user_filters', 'column') == "name" %>
+        <%= build_order_link(column: "name", label: "Name") %> 
+<%
+=end%>
+      </th>
+      <th scope="col" id="users-email" rowspan="2">E-Mail</th>
+      <th scope="col" id="users-sis_id" rowspan="2">SIS_ID</th>
+      <th scope="col" id="users-university" rowspan="2">Universidad</th>
+      <th scope="col" id="users-course_code" rowspan="2">Curso</th>
+      <th scope="col" colspan="2">INICIAL</th>
+      <th scope="col" colspan="2">MIDTERM</th>
+      <th scope="col" colspan="2">FINAL</th>
     </tr>
+            <tr>
+            <th id="users-initial_active">Activa</th>
+            <th id="users-initial_answered">Respondida</th>
+            <th id="users-midterm_active">Activa</th>
+            <th id="users-midterm_answered">Respondida</th>
+            <th id="users-exit_active">Activa</th>
+            <th id="users-exit_answered">Respondida</th>
+          </tr>
   </thead>
+  <turbo-stream action="replace" target="users">
   <tbody class="body">
-    <% @users.each do |user| %>
-      <tr >
-        <td><%= user.name %></td> 
-        <td><%= user.email %></td> 
-        <td><%= user.sis_id %></td> 
-        <td><%= user.university %></td> 
-        <td><%= user.course_code %></td> 
-        
 
-        <%= form_with(model: user, class:"text-lg inline-block my-3 w-72") do |form| %>
-          <td><%= form.check_box :initial_active, data: {
-                         sis_id: user.sis_id,
-                         action: "users#toggler"
-                       },class: "mr-2 align-middle bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-5 w-5 rounded checked:bg-green-500" %></td> 
-          <td><%= user.initial_active %></td> 
-          <td><%= form.check_box :midterm_active, class: "mr-2 align-middle bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-5 w-5 rounded checked:bg-green-500" %></td> 
-          <td><%= user.midterm_answered %></td> 
-          <td><%= form.check_box :exit_active, class: "mr-2 align-middle bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-5 w-5 rounded checked:bg-green-500" %></td> 
-          <td><%= user.exit_answered %></td> 
-        <%end%>
-        
+    <% @users.each do |user| %>
+      <tr >   
+      <%= render user %>       
       </tr> 
      <% end %>
+ 
   </tbody>
+  </turbo-stream>    
 </table>
 
 </div>

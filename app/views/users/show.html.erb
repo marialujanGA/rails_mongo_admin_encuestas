@@ -1,10 +1,30 @@
-<p style="color: green"><%= notice %></p>
+<%
+=begin%>
+ <p style="color: green"><%= notice %></p> 
+<%
+=end%>
 
 <%= render @user %>
 
-<div>
-  <%= link_to "Edit this user", edit_user_path(@user) %> |
-  <%= link_to "Back to users", users_path %>
 
-  <%= button_to "Destroy this user", @user, method: :delete %>
+<div class="d-flex justify-content-center flex-column">
+  <div>
+    <%= link_to  edit_user_path(@user) do %>
+      <button type="button" class="btn btn-outline-primary">Editar el usuario</button>
+    <% end %>
+    <%
+=begin%>
+ <%= link_to @user, data: { "turbo-method": :delete }, params: {user_id: @user.id} do %>
+      <button type="button" class="btn btn-outline-danger">Eliminar el usuario</button>
+    <% end %> 
+<%
+=end%>
+  </div>
+  <br>
+  <div class="d-flex justify-content-center">
+    <%= link_to  users_path do %>
+      <button data-turbo-method="delete" type="button" class="btn btn-outline-success">Regresar al índice</button>
+    <% end %>
+  </div>
+
 </div>

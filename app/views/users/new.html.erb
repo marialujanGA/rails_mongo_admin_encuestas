@@ -1,9 +1,16 @@
-<h1>New user</h1>
+<br>
+<h1><strong>AÑADIR NUEVO USUARIO</strong></h1>
+<br>
+<h3 style="text-align: center"><strong>ATENCIÓN:</strong> Las encuestas están <strong>ACTIVAS</strong> por default al añadir un nuevo usuario (checkbox azul). Si desea que una o varias encuestas estén <strong>INACTIVAS</strong> al añadir un nuevo usuario, por favor cambie el estado del checkbox a blanco.</h3>
 
+<p>(Para una correcta organización de los datos es necesario ingresar el SIS_ID y correo electrónico al añadir un nuevo usuario)</p>
+<br>
 <%= render "form", user: @user %>
 
 <br>
 
 <div>
-  <%= link_to "Back to users", users_path %>
+  <%= link_to users_path do%>
+    <button type="button" class="btn btn-danger">Cancelar</button>
+  <% end %>
 </div>
