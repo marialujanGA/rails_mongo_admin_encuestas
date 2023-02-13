@@ -22,9 +22,9 @@ class User
 
   scope :by_sis_id, ->(query) { where('users.sis_id ilike ?', "%#{query}%") } 
 
-  def self.filter(filters)
-    User.includes(:course_code)
-          .by_name(filters['sis_id'])
-          .order("#{filters['column']} #{filters['direction']}")
-  end
+  # def self.filter(filters)
+  #   User.includes(:course_code)
+  #         .by_name(filters['sis_id'])
+  #         .order("#{filters['column']} #{filters['direction']}")
+  # end
 end

@@ -31,42 +31,18 @@
 
   </div>
 
-  <%
-=begin%>
- <div>
-        <%= form.check_box :initial_answered %> <%= form.label :initial_answered, style: "display: inline" %>
-
-  </div> 
-<%
-=end%>
-
   <div>
         <%= form.check_box :midterm_active, {checked: true} %> <%= form.label "Encuesta midterm activa", style: "display: inline" %>
 
   </div>
 
-  <%
-=begin%>
- <div>
-        <%= form.check_box :midterm_answered %> <%= form.label :midterm_answered, style: "display: inline" %>
-
-  </div> 
-<%
-=end%>
-
   <div>
         <%= form.check_box :exit_active, {checked: true} %> <%= form.label "Encuesta final activa", style: "display: inline" %>
 
   </div>
-<%
-=begin%>
- 
-  <div>
-        <%= form.check_box :exit_answered %> <%= form.label :exit_answered, style: "display: inline" %>
-
-  </div> 
-<%
-=end%>
+    <%=form.hidden_field :initial_answered, :value => false %>
+    <%=form.hidden_field :midterm_answered, :value => false %>
+    <%=form.hidden_field :exit_answered, :value => false %>
   <br>
   <div class="d-flex justify-content-center">
     <%= form.submit "Agregar usuario", class:"btn btn-success" %>

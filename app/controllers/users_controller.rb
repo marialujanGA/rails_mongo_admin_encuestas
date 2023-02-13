@@ -4,7 +4,18 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    if params[:university]
+      @users = User.where(:university => params[:university])
+    elsif params[:query].present?
+      @users = User.or({sis_id: /#{params[:query]}/i}, {email: /#{params[:query]}/i}, {course_code: /#{params[:query]}/i}, {name: /#{params[:query]}/i})
+    else
+      @users = User.all
+    end
+    if turbo_frame_request?
+      render partial: "users", locals: { users: @users }
+    else
+      render :index
+    end
   end
 
   # GET /users/1 or /users/1.json
@@ -28,11 +39,12 @@ class UsersController < ApplicationController
       if @user.save
         format.html { redirect_to users_path, status: :see_other }
         
-        flash[:notice] = "#{@user.email} fue agregado exitosamente." 
+        flash[:success] = "#{@user.email} fue agregado exitosamente." 
         
         format.json { render :index, status: :created, location: @user }
       else
-        format.html { render :new, status: :unprocessable_entity, notice: "Ha ocurrido un error. Por favor vuelva a intentarlo." }
+        format.html { render :new, status: :unprocessable_entity }
+        flash[:danger] = "Ha ocurrido un error. Por favor vuelva a intentarlo."
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -40,16 +52,18 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    respond_to do |format|
+    # respond_to do |format|
       if @user.update(user_params)
         redirect_to users_path 
-        flash[:notice] = "El estado de la encuesta cambiado para #{@user.email}" 
+        flash[:success] = "El estado de la encuesta cambiado para #{@user.email}" 
 
       else
-        format.html { render :edit, status: :unprocessable_entity, notice: "Ha ocurrido un error. Por favor vuelva a intentarlo." }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        redirect_to users_path 
+        flash[:danger] = "Ha ocurrido un error. Por favor vuelva a intentarlo."
+
+
       end
-    end
+    # end
   end
 
   # DELETE /users/1 or /users/1.json
@@ -63,17 +77,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # def list
-  # #   # # users = User.includes(:course_code)
-  # #   # # users = users.where('sis_id ilike ?', "%#{params[:sis_id]}%") if params[:sis_id].present?
-  # #   # # users = users.order("#{params[:column]} #{params[:direction]}")
-  # #   # # render(partial: 'users', locals: { users: users })
-  #   users = filter!(User)
-  #   render(partial: 'users', locals: { users: users })
-  # end
-
-
-    private
+  private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])

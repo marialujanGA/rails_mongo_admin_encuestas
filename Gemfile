@@ -70,3 +70,7 @@ gem 'mongoid', '~> 8.0.2'
 gem 'bson_ext'
 
 gem 'jquery-rails'
+
+gem "cssbundling-rails", "~> 1.1"
+
+gem "jsbundling-rails", "~> 1.1"

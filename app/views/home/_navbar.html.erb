@@ -1,22 +1,37 @@
 <nav class="navbar bg-body-tertiary" style="background-color: #e3f2fd" >
   <div class="container-fluid ">
-  <div class="d-flex justify-content-start">
-    <%= link_to users_path(filters: user.university: "MITPE") do%>
-    <a class="navbar-brand">MITPE</a><% end %>
-    <a class="navbar-brand">XPRO</a>
-    <a class="navbar-brand">UCHI</a>
-    <a class="navbar-brand">BOOTH</a>
-    <a class="navbar-brand">MIAMI</a>
+    <div class="d-flex justify-content-start">
+      <%= link_to users_path do%>
+        <button type="button" class="btn btn-primary" style="margin: 0 5px" >INICIO</button> 
+      <% end %>
+      <%= link_to users_path(:university=>"MITPE") do%>
+        <button type="button" class="btn btn-primary" style="margin: 0 5px">MITPE</button> 
+      <% end %> 
+      <%= link_to users_path(:university=>"XPRO") do%>
+        <button type="button" class="btn btn-primary" style="margin: 0 5px">XPRO</button>
+      <% end %> 
+      <%= link_to users_path(:university=>"UCHI") do%>
+        <button type="button" class="btn btn-primary" style="margin: 0 5px">UCHI</button>
+      <% end %> 
+      <%= link_to users_path(:university=>"BOOTH") do%>
+        <button type="button" class="btn btn-primary" style="margin: 0 5px">BOOTH</button>
+      <% end %> 
+      <%= link_to users_path(:university=>"MIAMI") do%>
+        <button type="button" class="btn btn-primary" style="margin: 0 5px">MIAMI</button> 
+      <% end %> 
+
     </div>
     <%= link_to new_user_path do %>
       <button class="btn btn-outline-primary" type="submit"  >+ Agregar usuario</button>
+    <% end %>
+
+      <%= form_with(url: users_path, method: :get, data: { controller: "search-form", turbo_frame: "users", turbo_action: "advance" }, class: "d-flex flex-row") do |form| %>
+        <%= form.text_field :query,
+        placeholder: "Buscar",
+        class: "form-control me-2",
+        data: {action: "input->search-form#search"} %>
+        <%= submit_tag "Buscar", class:"btn btn-primary" %>
       <% end %>
-    <%
-=begin%>
- <%= form_with url: list_users_path, method: :get, data: { controller: "search-form", search_form_target: "form", turbo_frame: "users" } do |form| %>
-       <%= form.text_field :sis_id, data: { action: "input->search-form#search" }, autocomplete: "off", class:"form-control me-2", placeholder:"Buscar sis_id" %>
-    <% end %> 
-<%
-=end%>
+
   </div>
 </nav>

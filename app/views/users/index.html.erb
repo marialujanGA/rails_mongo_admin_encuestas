@@ -31,15 +31,15 @@
           </tr>
   </thead>
   <turbo-stream action="replace" target="users">
-  <tbody class="body">
-
-    <% @users.each do |user| %>
-      <tr >   
-      <%= render user %>       
-      </tr> 
-     <% end %>
- 
-  </tbody>
+    <tbody class="body">
+      <%= turbo_frame_tag "users" do %>  
+        <% @users.each do |user| %>
+          <tr >  
+            <%= render user %> 
+          </tr> 
+        <% end %>
+      <% end %>  
+    </tbody>
   </turbo-stream>    
 </table>
 
