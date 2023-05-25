@@ -5,15 +5,9 @@
 <table class="table align-middle text-center table-hover">
   <thead>
     <tr>                          
-      <th scope="col" id="users-name" rowspan="2" >Nombre
-        <%
-=begin%>
- <%= sort_indicator if session.dig('user_filters', 'column') == "name" %>
-        <%= build_order_link(column: "name", label: "Name") %> 
-<%
-=end%>
-      </th>
+      <th scope="col" id="users-name" rowspan="2" >Nombre</th>
       <th scope="col" id="users-email" rowspan="2">E-Mail</th>
+      <th scope="col" id="users-canvas_id" rowspan="2">Canvas_ID</th>
       <th scope="col" id="users-sis_id" rowspan="2">SIS_ID</th>
       <th scope="col" id="users-university" rowspan="2">Universidad</th>
       <th scope="col" id="users-course_code" rowspan="2">Curso</th>
